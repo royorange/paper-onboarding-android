@@ -5,10 +5,10 @@
     android:layout_height="match_parent">
 
     <!-- BG COLORS CONTAINER -->
-    <FrameLayout
-        android:id="@+id/onboardingBackgroundContainer"
-        android:layout_width="match_parent"
-        android:layout_height="match_parent" />
+    <!--<FrameLayout--> dynamic add container in code
+    <!--    android:id="@+id/onboardingBackgroundContainer"-->
+    <!--    android:layout_width="match_parent"-->
+    <!--    android:layout_height="match_parent" />-->
 
     <!-- MAIN LAYOUT SECTION -->
     <RelativeLayout
