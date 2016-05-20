@@ -28,6 +28,8 @@ import com.ramotion.paperonboarding.utils.PaperOnboardingEngineDefaults;
 
 import java.util.ArrayList;
 
+import io.codetail.widget.RevealFrameLayout;
+
 /**
  * Main Paper Onboarding logic
  */
