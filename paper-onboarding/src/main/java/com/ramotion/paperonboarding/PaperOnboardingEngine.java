@@ -81,7 +81,13 @@ public class PaperOnboardingEngine implements PaperOnboardingEngineDefaults {
         mRootLayout = (RelativeLayout) rootLayout;
         mContentTextContainer = (FrameLayout) rootLayout.findViewById(R.id.onboardingContentTextContainer);
         mContentIconContainer = (FrameLayout) rootLayout.findViewById(R.id.onboardingContentIconContainer);
-        mBackgroundContainer = (FrameLayout) rootLayout.findViewById(R.id.onboardingBackgroundContainer);
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+//            mBackgroundContainer = (FrameLayout) rootLayout.findViewById(R.id.onboardingBackgroundContainer);
+            mBackgroundContainer = new FrameLayout(appContext);
+        }else {
+            mBackgroundContainer = new RevealFrameLayout(appContext);
+        }
+        mRootLayout.addView(mBackgroundContainer,0,new RelativeLayout.LayoutParams(ViewGroup.LayoutParams.MATCH_PARENT,ViewGroup.LayoutParams.MATCH_PARENT));
         mPagerIconsContainer = (LinearLayout) rootLayout.findViewById(R.id.onboardingPagerIconsContainer);
 
         mContentRootLayout = (RelativeLayout) mRootLayout.getChildAt(1);
@@ -262,7 +268,12 @@ public class PaperOnboardingEngine implements PaperOnboardingEngineDefaults {
         AnimatorSet bgAnimSet = new AnimatorSet();
         Animator circularReveal = ViewAnimationUtils.createCircularReveal(bgColorView, pos[0], pos[1], 0, finalRadius);
         Animator fadeIn = ObjectAnimator.ofFloat(bgColorView, "alpha", 0, 1);
-        circularReveal.setInterpolator(new AccelerateInterpolator());
+        Animator circularReveal = null;
+        if(Build.VERSION.SDK_INT >= Build.VERSION_CODES.LOLLIPOP){
+            circularReveal = ViewAnimationUtils.createCircularReveal(bgColorView, pos[0], pos[1], 0, finalRadius);
+        }else {
+            circularReveal = io.codetail.animation.ViewAnimationUtils.createCircularReveal(bgColorView, pos[0], pos[1], 0, finalRadius);
+        }
         bgAnimSet.playTogether(circularReveal, fadeIn);
         bgAnimSet.setDuration(ANIM_BACKGROUND_TIME);
         bgAnimSet.addListener(new AnimatorEndListener() {
